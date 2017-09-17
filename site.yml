@@ -1,0 +1,17 @@
+---
+- name: Configure system to run techvomit
+  hosts: webservers
+  become: true
+  gather_facts: false
+  # Install python on system so we can run ansible
+  pre_tasks:
+  - name: Install Python 2
+    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+    register: output
+    changed_when: output.stdout != ""
+  - name: Gathering Facts
+    setup:
+
+  roles:
+    - angstwad.docker_ubuntu
+    - techvomit

@@ -1,0 +1,73 @@
+---
+- name: Clone techvomit repo
+  git:
+    repo: git://github.com/l50/techvomit.git
+    dest: "{{techvomit_directory}}"
+
+- name: Copy creds env file into place
+  copy:
+    src: env
+    dest: "{{techvomit_directory}}/.env"
+
+- name: Move backed up data into place
+  copy:
+    src: backups
+    dest: "{{techvomit_directory}}"
+
+- name: Install unzip
+  package: name=unzip state=latest
+  when: (ansible_distribution == 'Ubuntu')
+
+- name: Unzip Ghost backup
+  unarchive:
+    src: "{{techvomit_directory}}/backups/techvomit_ghost_data.zip"
+    dest: "{{techvomit_directory}}/backups"
+    remote_src: yes
+
+- name: Unzip Mariadb backup
+  unarchive:
+    src: "{{techvomit_directory}}/backups/techvomit_mariadb_data.zip"
+    dest: "{{techvomit_directory}}/backups"
+    remote_src: yes
+
+- name: Create ssl certificate directory
+  file: path="{{extension_directory}}/ssl" state=directory
+
+- name: Move backed up data into place
+  copy:
+    src: "ssl.zip"
+    dest: "{{techvomit_directory}}/ssl.zip"
+
+- name: Unzip ssl certificate zip
+  unarchive:
+    src: "{{techvomit_directory}}/ssl.zip"
+    dest: "{{extension_directory}}"
+    remote_src: yes
+
+- name: docker-compose up to get the folder infrastructure built up
+  shell: "docker-compose up -d"
+  args:
+    chdir: "{{techvomit_directory}}"
+
+- name: Wait until the blog is finished with initial setup
+  pause:
+    minutes: 2
+
+- name: Stop techvomit containers so we can move data into place
+  shell: "docker-compose stop"
+  args:
+    chdir: "{{techvomit_directory}}"
+
+- name: Rsync maria-db data
+  shell: "rsync -a {{techvomit_directory}}/backups/techvomit_mariadb_databkp.*/techvomit_mariadb_data/_data/ /var/lib/docker/volumes/techvomit_mariadb_data/_data/"
+
+- name: Transfer aio-master theme
+  shell: "cp -r {{techvomit_directory}}/backups/techvomit_ghost_databkp.*/techvomit_ghost_data/_data/ghost/content/themes/aio-master/ /var/lib/docker/volumes/techvomit_ghost_data/_data/ghost/content/themes/"
+
+- name: Transfer sedona picture
+  shell: "cp -r {{techvomit_directory}}/backups/techvomit_ghost_databkp.*/techvomit_ghost_data/_data/ghost/content/images/* /var/lib/docker/volumes/techvomit_ghost_data/_data/ghost/content/images/"
+
+- name: Force rebuild to incorporate the data
+  shell: "docker-compose up -d --force-recreate"
+  args:
+    chdir: "{{techvomit_directory}}"
