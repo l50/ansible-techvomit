@@ -1,3 +1,26 @@
 ---
+# Directory where techvomit lives
 techvomit_directory: "{{ansible_env.HOME}}/techvomit"
-extension_directory: "/apps/web"
+
+# Directory where ssl certificates live
+ssl_directory: "/apps/web"
+
+# Location of mariadb volume data
+mariadb_data_location: "/var/lib/docker/volumes/techvomit_mariadb_data"
+
+# Directory to backup mariadb data to -- should be an s3 bucket (TODO)
+mariadb_backup_location: "/tmp/techvomit_mariadb_data"
+
+# Location of ghost volume data
+ghost_data_location: "/var/lib/docker/volumes/techvomit_ghost_data"
+
+# Directory to backup ghost data to -- should be an s3 bucket (TODO)
+ghost_backup_location: "/tmp/techvomit_ghost_data"
+
+# Docker rebuild string
+docker_rebuild: "docker pull bitnami/ghost:latest; docker pull bitnami/mariadb:latest; docker-compose up -d --force-recreate"
+
+# Dependencies we need for everything to work
+dependencies:
+  - 'unzip'
+  - 'zip'

@@ -14,10 +14,6 @@
     src: backups
     dest: "{{techvomit_directory}}"
 
-- name: Install unzip
-  package: name=unzip state=latest
-  when: (ansible_distribution == 'Ubuntu')
-
 - name: Unzip Ghost backup
   unarchive:
     src: "{{techvomit_directory}}/backups/techvomit_ghost_data.zip"
@@ -31,7 +27,7 @@
     remote_src: yes
 
 - name: Create ssl certificate directory
-  file: path="{{extension_directory}}/ssl" state=directory
+  file: path="{{ssl_directory}}/ssl" state=directory
 
 - name: Move backed up data into place
   copy:
@@ -41,7 +37,7 @@
 - name: Unzip ssl certificate zip
   unarchive:
     src: "{{techvomit_directory}}/ssl.zip"
-    dest: "{{extension_directory}}"
+    dest: "{{ssl_directory}}"
     remote_src: yes
 
 - name: docker-compose up to get the folder infrastructure built up

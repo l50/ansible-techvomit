@@ -19,12 +19,11 @@ find something useful for your own blog.
 - [x] Make sure all necessary files are in place to be transferred
 - [] Make a conditional on whether or not ssl.zip exists
 - [] Turn install.sh into a Makefile
-- [] Set up cronjob to backup the data weekly: 00 01 * * 1 to an s3
-bucket
-- [] Set up cronjob to renew ssl certificate weekly as is suggested
-  here: https://github.com/gregbkr/ghost-nginx-ssl-docker
-- [] Set up cronjob to destroy, update, and rebuild weekly (probably
-similar looking cron to the above)
+- [x] Set up cronjob to backup the mariadb and ghost data daily
+- [x] Set up cronjob to destroy, update, and rebuild contains weekly - this includes renewing the ssl certificate
+- [] Get backups sent to an s3 bucket
+- [] See if we can get away with rebuilding without ssl.zip
+- [] Make new backup of content on working techvomit instance
 
 ## License
 MIT

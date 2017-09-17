@@ -1,0 +1,26 @@
+---
+- name: Install dependencies with apt package manager
+  package: name={{item}} state=latest
+  with_items: "{{dependencies}}"
+  when: (ansible_distribution == 'Ubuntu')
+
+- name: Routinely backup mariadb data
+  cron:
+    name: 'Back up mariadb data daily at 17:00'
+    minute: '0'
+    hour: '17'
+    job: "cd {{mariadb_data_location}} && zip -r {{mariadb_backup_location}}-bkp.$(date +%Y%m%d-%H.%M.%S).zip ."
+
+- name: Routinely backup ghost data
+  cron:
+    name: 'Back up ghost data daily at 17:10'
+    minute: '10'
+    hour: '17'
+    job: "cd {{ghost_data_location}} && zip -r {{ghost_backup_location}}-bkp.$(date +%Y%m%d-%H.%M.%S).zip ."
+
+- name: Rebuild all containers weekly - takes about 6.5 minutes
+  cron:
+    name: 'Rebuild techvomit containers every Sunday at 01:00'
+    hour: '1'
+    weekday: '0'
+    job: "cd {{techvomit_directory}} && {{docker_rebuild}}"
