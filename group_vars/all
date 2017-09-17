@@ -1,0 +1,3 @@
+---
+techvomit_directory: "{{ansible_env.HOME}}/techvomit"
+extension_directory: "/apps/web"
