@@ -5,6 +5,7 @@ Ansible playbook to set up techvomit.
 
 ### To run:
 ```
+bash installGalaxyRoles.sh
 ansible-playbook site.yml
 ```
 
