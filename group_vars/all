@@ -2,20 +2,36 @@
 # Directory where techvomit lives
 techvomit_directory: "{{ansible_env.HOME}}/techvomit"
 
+# TODO: We should be able to remove this once we can test our new docker-compose
 # Directory where ssl certificates live
 ssl_directory: "/apps/web"
 
-# Location of mariadb volume data
-mariadb_data_location: "/var/lib/docker/volumes/techvomit_mariadb_data"
+# Ghost backup zip location
+ghost_backup_zip: "{{techvomit_directory}}/backups/techvomit_ghost_data-bkp.*.zip"
 
-# Directory to backup mariadb data to -- should be an s3 bucket (TODO)
-mariadb_backup_location: "/tmp/techvomit_mariadb_data"
+# Unzipped Ghost backup
+ghost_backup: "{{techvomit_directory}}/backups/techvomit_ghost_data"
+
+# MariaDB backup zip location
+mariadb_backup_zip: "{{techvomit_directory}}/backups/techvomit_mariadb_data-bkp.*.zip"
+
+# Unzipped MariaDB backup
+mariadb_backup: "{{techvomit_directory}}/backups/techvomit_mariadb_data"
+
+# Aio backup
+aio_backup: "{{ghost_backup}}/_data/ghost/content/themes/aio-master/"
+
+# Location of mariadb volume data
+mariadb_data: "/var/lib/docker/volumes/techvomit_mariadb_data/_data/"
 
 # Location of ghost volume data
-ghost_data_location: "/var/lib/docker/volumes/techvomit_ghost_data"
+ghost_data: "/var/lib/docker/volumes/techvomit_ghost_data"
 
 # Directory to backup ghost data to -- should be an s3 bucket (TODO)
 ghost_backup_location: "/tmp/techvomit_ghost_data"
+
+# Directory to backup mariadb data to -- should be an s3 bucket (TODO)
+mariadb_backup_location: "/tmp/techvomit_mariadb_data"
 
 # Docker rebuild string
 docker_rebuild: "docker pull bitnami/ghost:latest; docker pull bitnami/mariadb:latest; docker-compose up -d --force-recreate"

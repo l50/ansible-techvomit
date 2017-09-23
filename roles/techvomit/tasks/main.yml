@@ -15,30 +15,10 @@
     dest: "{{techvomit_directory}}"
 
 - name: Unzip Ghost backup
-  unarchive:
-    src: "{{techvomit_directory}}/backups/techvomit_ghost_data.zip"
-    dest: "{{techvomit_directory}}/backups"
-    remote_src: yes
+  shell: "unzip {{ghost_backup_zip}} -d {{ghost_backup}}"
 
-- name: Unzip Mariadb backup
-  unarchive:
-    src: "{{techvomit_directory}}/backups/techvomit_mariadb_data.zip"
-    dest: "{{techvomit_directory}}/backups"
-    remote_src: yes
-
-- name: Create ssl certificate directory
-  file: path="{{ssl_directory}}/ssl" state=directory
-
-- name: Move backed up data into place
-  copy:
-    src: "ssl.zip"
-    dest: "{{techvomit_directory}}/ssl.zip"
-
-- name: Unzip ssl certificate zip
-  unarchive:
-    src: "{{techvomit_directory}}/ssl.zip"
-    dest: "{{ssl_directory}}"
-    remote_src: yes
+- name: Unzip MariaDB backup
+  shell: "unzip {{mariadb_backup_zip}} -d {{mariadb_backup}}"
 
 - name: docker-compose up to get the folder infrastructure built up
   shell: "docker-compose up -d"
@@ -54,14 +34,28 @@
   args:
     chdir: "{{techvomit_directory}}"
 
-- name: Rsync maria-db data
-  shell: "rsync -a {{techvomit_directory}}/backups/techvomit_mariadb_databkp.*/techvomit_mariadb_data/_data/ /var/lib/docker/volumes/techvomit_mariadb_data/_data/"
+- name: Rsync MariaDB data
+  shell: "rsync -a {{mariadb_backup}}/_data/ {{mariadb_data}}"
 
-- name: Transfer aio-master theme
-  shell: "cp -r {{techvomit_directory}}/backups/techvomit_ghost_databkp.*/techvomit_ghost_data/_data/ghost/content/themes/aio-master/ /var/lib/docker/volumes/techvomit_ghost_data/_data/ghost/content/themes/"
+- name: Transfer aio theme
+  shell: "cp -r {{aio_backup}} {{ghost_data}}/_data/ghost/content/themes/"
 
-- name: Transfer sedona picture
-  shell: "cp -r {{techvomit_directory}}/backups/techvomit_ghost_databkp.*/techvomit_ghost_data/_data/ghost/content/images/* /var/lib/docker/volumes/techvomit_ghost_data/_data/ghost/content/images/"
+# TODO: We should be able to remove this once we can test our new docker-compose
+# BEGIN
+- name: Create ssl certificate directory
+  file: path="{{ssl_directory}}/ssl" state=directory
+
+- name: Move backed up data into place
+  copy:
+    src: "ssl.zip"
+    dest: "{{techvomit_directory}}/ssl.zip"
+
+- name: Unzip ssl certificate zip
+  unarchive:
+    src: "{{techvomit_directory}}/ssl.zip"
+    dest: "{{ssl_directory}}"
+    remote_src: yes
+#END
 
 - name: Force rebuild to incorporate the data
   shell: "docker-compose up -d --force-recreate"
