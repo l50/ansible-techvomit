@@ -22,7 +22,7 @@ mariadb_backup: "{{techvomit_directory}}/backups/techvomit_mariadb_data"
 aio_backup: "{{ghost_backup}}/_data/ghost/content/themes/aio-master/"
 
 # Location of mariadb volume data
-mariadb_data: "/var/lib/docker/volumes/techvomit_mariadb_data/_data/"
+mariadb_data: "/var/lib/docker/volumes/techvomit_mariadb_data"
 
 # Location of ghost volume data
 ghost_data: "/var/lib/docker/volumes/techvomit_ghost_data"

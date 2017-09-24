@@ -35,7 +35,7 @@
     chdir: "{{techvomit_directory}}"
 
 - name: Rsync MariaDB data
-  shell: "rsync -a {{mariadb_backup}}/_data/ {{mariadb_data}}"
+  shell: "rsync -a {{mariadb_backup}}/_data/ {{mariadb_data}}/_data/"
 
 - name: Transfer aio theme
   shell: "cp -r {{aio_backup}} {{ghost_data}}/_data/ghost/content/themes/"
