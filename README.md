@@ -21,9 +21,9 @@ might find something useful for your own blog.
 - [x] See if we can get away with rebuilding without ssl.zip
 - [x] Set up cronjob to backup the mariadb and ghost data daily
 - [x] Set up cronjob to destroy, update, and rebuild contains weekly - this includes renewing the ssl certificate
-- [] Make new backup of content on working techvomit instance
+- [x] Make new backup of content on working techvomit instance
 - [] Get backups sent to an s3 bucket
-- [] Turn install.sh into a Makefile
+- [] Test new docker-compose
 
 ## License
 MIT
