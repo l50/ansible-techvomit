@@ -22,6 +22,7 @@ might find something useful for your own blog.
 - [x] Set up cronjob to backup the mariadb and ghost data daily
 - [x] Set up cronjob to destroy, update, and rebuild contains weekly - this includes renewing the ssl certificate
 - [x] Make new backup of content on working techvomit instance
+- [x] Create Makefile for ansible dependencies installation
 - [] Get backups sent to an s3 bucket
 - [] Test new docker-compose
 - [] Add logic to check if site is down
