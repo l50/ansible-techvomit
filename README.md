@@ -24,6 +24,13 @@ might find something useful for your own blog.
 - [x] Make new backup of content on working techvomit instance
 - [] Get backups sent to an s3 bucket
 - [] Test new docker-compose
+- [] Add logic to check if site is down
+- [] If site is down, rebuild the site using docker, up to 2 times
+- [] If site is still down despite rebuilding the site up to 2 times
+  with docker, send email to admin letting them know docker failed
+- [] Once an email is sent, destroy and rebuild the instance
+- [] If site is still broken, send email to admin letting them know the
+  instance was rebuilt, and the site is still broken
 
 ## License
 MIT
