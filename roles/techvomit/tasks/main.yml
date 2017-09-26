@@ -9,10 +9,11 @@
     src: env
     dest: "{{techvomit_directory}}/.env"
 
-- name: Move backed up data into place
-  copy:
-    src: backups
-    dest: "{{techvomit_directory}}"
+- name: Get backed up ghost data into place
+  shell: "{{aws_cli}} s3 cp s3://{{s3_bucket_name}}/$({{aws_cli}} s3 ls s3://{{s3_bucket_name}} | grep ghost | tail -n 1 | awk '{ print $4 }') {{techvomit_directory}}"
+
+- name: Get backed up MariaDB data into place
+  shell: "{{aws_cli}} s3 cp s3://{{s3_bucket_name}}/$({{aws_cli}} s3 ls s3://{{s3_bucket_name}} | grep mariadb | tail -n 1 | awk '{ print $4 }') {{techvomit_directory}}"
 
 - name: Unzip Ghost backup
   shell: "unzip {{ghost_backup_zip}} -d {{ghost_backup}}"
@@ -61,3 +62,6 @@
   shell: "docker-compose up -d --force-recreate"
   args:
     chdir: "{{techvomit_directory}}"
+
+#- name: Clean up backup data - TODO: needs testing
+#  shell: "rm {{techvomit_directory}}/*zip; rm -rf {{techvomit_directory}}/techvomit_*_data"

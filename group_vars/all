@@ -2,21 +2,27 @@
 # Directory where techvomit lives
 techvomit_directory: "{{ansible_env.HOME}}/techvomit"
 
+# Name of s3 bucket for backup/restore
+s3_bucket_name: "techvomit"
+
+# AWS-Cli location
+aws_cli: "$HOME/.local/bin/aws"
+
 # TODO: We should be able to remove this once we can test our new docker-compose
 # Directory where ssl certificates live
 ssl_directory: "/apps/web"
 
 # Ghost backup zip location
-ghost_backup_zip: "{{techvomit_directory}}/backups/techvomit_ghost_data-bkp.*.zip"
+ghost_backup_zip: "{{techvomit_directory}}/techvomit_ghost_data-bkp.*.zip"
 
 # Unzipped Ghost backup
-ghost_backup: "{{techvomit_directory}}/backups/techvomit_ghost_data"
+ghost_backup: "{{techvomit_directory}}/techvomit_ghost_data"
 
 # MariaDB backup zip location
-mariadb_backup_zip: "{{techvomit_directory}}/backups/techvomit_mariadb_data-bkp.*.zip"
+mariadb_backup_zip: "{{techvomit_directory}}/techvomit_mariadb_data-bkp.*.zip"
 
 # Unzipped MariaDB backup
-mariadb_backup: "{{techvomit_directory}}/backups/techvomit_mariadb_data"
+mariadb_backup: "{{techvomit_directory}}/techvomit_mariadb_data"
 
 # Aio backup
 aio_backup: "{{ghost_backup}}/_data/ghost/content/themes/aio-master/"

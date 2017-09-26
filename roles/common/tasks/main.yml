@@ -4,19 +4,22 @@
   with_items: "{{dependencies}}"
   when: (ansible_distribution == 'Ubuntu')
 
+- name: Install aws-cli
+  shell: pip install awscli --upgrade --user
+
 - name: Routinely backup mariadb data
   cron:
     name: 'Back up mariadb data daily at 17:00'
     minute: '0'
     hour: '17'
-    job: "cd {{mariadb_data}} && zip -r {{mariadb_backup_location}}-bkp.$(date +%Y%m%d-%H.%M.%S).zip ."
+    job: "cd {{mariadb_data}} && zip -r {{mariadb_backup_location}}-bkp.$(date +%Y%m%d-%H.%M.%S).zip . && {{aws_cli}} s3 cp {{mariadb_backup_location}}-bkp.*.zip s3://{{s3_bucket_name}} && rm /tmp/*zip"
 
 - name: Routinely backup ghost data
   cron:
     name: 'Back up ghost data daily at 17:10'
     minute: '10'
     hour: '17'
-    job: "cd {{ghost_data}} && zip -r {{ghost_backup_location}}-bkp.$(date +%Y%m%d-%H.%M.%S).zip ."
+    job: "cd {{ghost_data}} && zip -r {{ghost_backup_location}}-bkp.$(date +%Y%m%d-%H.%M.%S).zip . && {{aws_cli}} s3 cp {{ghost_backup_location}}-bkp.*.zip s3://{{s3_bucket_name}} && rm /tmp/*zip"
 
 - name: Rebuild all containers weekly - takes about 6.5 minutes
   cron:
