@@ -25,7 +25,7 @@ might find something useful for your own blog.
 - [x] Create Makefile for ansible dependencies installation and running
   the playbook
 - [x] Get backups sent to an s3 bucket
-- [] Set finite retention period for backups
+- [x] Set finite retention period for backups
 - [] Test new docker-compose
 - [] Add logic to check if site is down
 - [] If site is down, rebuild the site using docker, up to 2 times
