@@ -39,7 +39,7 @@ might find something useful for your own blog.
 MIT
 
 ### Resources
-https://gist.github.com/gwillem/4ba393dceb55e5ae276a87300f6b8e6f
-https://nickjanetakis.com/blog/automate-installing-docker-and-docker-compose-with-ansible
-https://github.com/gregbkr/ghost-nginx-ssl-docker
-https://github.com/dmitrym0/simple-lets-encrypt-docker-compose-sample/blob/master/docker-compose.yml
+- https://gist.github.com/gwillem/4ba393dceb55e5ae276a87300f6b8e6f
+- https://nickjanetakis.com/blog/automate-installing-docker-and-docker-compose-with-ansible
+- https://github.com/gregbkr/ghost-nginx-ssl-docker
+- https://github.com/dmitrym0/simple-lets-encrypt-docker-compose-sample/blob/master/docker-compose.yml
