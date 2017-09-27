@@ -3,7 +3,7 @@
   hosts: webservers
   become: true
   gather_facts: false
-  # Install python on system so we can run ansible
+  # Install python on the target system, so that we can run ansible
   pre_tasks:
   - name: Install Python 2
     raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
