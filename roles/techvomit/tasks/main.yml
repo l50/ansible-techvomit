@@ -26,9 +26,10 @@
   args:
     chdir: "{{techvomit_directory}}"
 
+# TODO: Might be able to shorten this to 4 minutes
 - name: Wait until the blog is finished with initial setup
   pause:
-    minutes: 2
+    minutes: 6
 
 - name: Stop techvomit containers so we can move data into place
   shell: "docker-compose stop"
@@ -40,23 +41,6 @@
 
 - name: Transfer aio theme
   shell: "cp -r {{aio_backup}} {{ghost_data}}/_data/ghost/content/themes/"
-
-# TODO: We should be able to remove this once we can test our new docker-compose
-# BEGIN
-- name: Create ssl certificate directory
-  file: path="{{ssl_directory}}/ssl" state=directory
-
-- name: Move backed up data into place
-  copy:
-    src: "ssl.zip"
-    dest: "{{techvomit_directory}}/ssl.zip"
-
-- name: Unzip ssl certificate zip
-  unarchive:
-    src: "{{techvomit_directory}}/ssl.zip"
-    dest: "{{ssl_directory}}"
-    remote_src: yes
-#END
 
 - name: Force rebuild to incorporate the data
   shell: "docker-compose up -d --force-recreate"

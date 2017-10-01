@@ -19,7 +19,7 @@ might find something useful for your own blog.
 - [x] Turn runme.sh into ansible code
 - [x] Make sure all necessary files are in place to be transferred
 - [x] See if we can get away with rebuilding without ssl.zip
-- [x] Set up cronjob to backup the mariadb and ghost data daily
+- [] Set up cronjob to backup the mariadb and ghost data daily
 - [x] Set up cronjob to destroy, update, and rebuild contains weekly - this includes renewing the ssl certificate
 - [x] Make new backup of content on working techvomit instance
 - [x] Create Makefile for ansible dependencies installation and running
