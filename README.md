@@ -44,3 +44,4 @@ MIT
 - https://github.com/gregbkr/ghost-nginx-ssl-docker
 - https://github.com/dmitrym0/simple-lets-encrypt-docker-compose-sample/blob/master/docker-compose.yml
 - https://stackoverflow.com/questions/9110663/cron-task-append-current-date-to-the-filename-via-cron
+- https://www.cyberciti.biz/faq/howto-create-cron-log-file-to-log-crontab-logs-in-ubuntu-linux/
