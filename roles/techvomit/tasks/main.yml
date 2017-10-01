@@ -26,10 +26,9 @@
   args:
     chdir: "{{techvomit_directory}}"
 
-# TODO: Might be able to shorten this to 4 minutes
 - name: Wait until the blog is finished with initial setup
   pause:
-    minutes: 6
+    minutes: 4
 
 - name: Stop techvomit containers so we can move data into place
   shell: "docker-compose stop"
@@ -46,6 +45,3 @@
   shell: "docker-compose up -d --force-recreate"
   args:
     chdir: "{{techvomit_directory}}"
-
-#- name: Clean up backup data - TODO: needs testing
-#  shell: "rm {{techvomit_directory}}/*zip; rm -rf {{techvomit_directory}}/techvomit_*_data"
