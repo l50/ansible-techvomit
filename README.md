@@ -19,14 +19,14 @@ might find something useful for your own blog.
 - [x] Turn runme.sh into ansible code
 - [x] Make sure all necessary files are in place to be transferred
 - [x] See if we can get away with rebuilding without ssl.zip
-- [] Set up cronjob to backup the mariadb and ghost data daily
+- [x] Set up cronjob to backup the mariadb and ghost data daily
 - [x] Set up cronjob to destroy, update, and rebuild contains weekly - this includes renewing the ssl certificate
 - [x] Make new backup of content on working techvomit instance
 - [x] Create Makefile for ansible dependencies installation and running
   the playbook
 - [x] Get backups sent to an s3 bucket
 - [x] Set finite retention period for backups
-- [] Test new docker-compose
+- [x] Test new docker-compose
 - [] Add logic to check if site is down
 - [] If site is down, rebuild the site using docker, up to 2 times
 - [] If site is still down despite rebuilding the site up to 2 times
@@ -43,3 +43,4 @@ MIT
 - https://nickjanetakis.com/blog/automate-installing-docker-and-docker-compose-with-ansible
 - https://github.com/gregbkr/ghost-nginx-ssl-docker
 - https://github.com/dmitrym0/simple-lets-encrypt-docker-compose-sample/blob/master/docker-compose.yml
+- https://stackoverflow.com/questions/9110663/cron-task-append-current-date-to-the-filename-via-cron
