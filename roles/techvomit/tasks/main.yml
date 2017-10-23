@@ -41,6 +41,9 @@
 - name: Transfer aio theme
   shell: "cp -r {{aio_backup}} {{ghost_data}}/_data/ghost/content/themes/"
 
+- name: Fix permissions issue on MariaDB volume
+  shell: "chown -R 1001:1001 {{mariadb_data}}"
+
 - name: Force rebuild to incorporate the data
   shell: "docker-compose up -d --force-recreate"
   args:
