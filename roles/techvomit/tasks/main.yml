@@ -44,6 +44,12 @@
 - name: Fix permissions issue on MariaDB volume
   shell: "chown -R 1001:1001 {{mariadb_data}}"
 
+- name: Fix port being appended to prod config
+  shell: "sed -i -e 's/:2368//g' {{ghost_data}}/_data/ghosts/config.production.json"
+
+- name: Fix permissions for prod config
+  shell: "chown 1001 {{ghost_data}}/_data/ghosts/config.production.json"
+
 - name: Force rebuild to incorporate the data
   shell: "docker-compose up -d --force-recreate"
   args:
