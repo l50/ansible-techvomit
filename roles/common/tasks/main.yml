@@ -27,3 +27,10 @@
     hour: '1'
     weekday: '0'
     job: "cd {{techvomit_directory}} && {{docker_rebuild}}"
+
+- name: Remove all unused containers, networks, and images
+  cron:
+    name: 'Remove all unused containers, networks, and images to stop disk from filling up every Sunday at 03:00'
+    hour: '3'
+    weekday: '0'
+    job: "docker system prune"
