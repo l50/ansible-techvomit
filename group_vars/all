@@ -38,7 +38,8 @@ mariadb_backup_location: "/tmp/techvomit_mariadb_data"
 # Docker rebuild string
 docker_rebuild: "docker pull bitnami/ghost:latest; docker pull bitnami/mariadb:latest; docker-compose up -d --force-recreate"
 
-# Dependencies we need for everything to work
-dependencies:
+# Various packages we need for everything to work
+packages:
+  - 'unattended-upgrades'
   - 'unzip'
   - 'zip'

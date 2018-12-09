@@ -1,7 +1,7 @@
 ---
 - name: Install dependencies with apt package manager
   package: name={{item}} state=latest
-  with_items: "{{dependencies}}"
+  with_items: "{{packages}}"
   when: (ansible_distribution == 'Ubuntu')
 
 - name: Install aws-cli
