@@ -33,4 +33,4 @@
     name: 'Remove all unused containers, networks, and images to stop disk from filling up every Sunday at 03:00'
     hour: '3'
     weekday: '0'
-    job: "docker system prune"
+    job: "docker system prune -f"
